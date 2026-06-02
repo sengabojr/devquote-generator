@@ -16,14 +16,23 @@ function App() {
 
   return (
     <div
-      className={`app ${darkMode ? "dark" : ""}`}
+      className={`min-h-screen flex flex-col items-center justify-center gap-6 transition-all ${
+        darkMode
+          ? "bg-zinc-900 text-white"
+          : "bg-white text-black"
+      }`}
     >
-      <h1>DevQuote Generator</h1>
+      <h1 className="text-4xl font-bold">
+        DevQuote Generator
+      </h1>
 
       <QuoteCard quote={quote} />
 
-      <div className="buttons">
-        <button onClick={randomQuote}>
+      <div className="flex gap-4">
+        <button
+          onClick={randomQuote}
+          className="px-4 py-2 rounded-lg border"
+        >
           New Quote
         </button>
 
@@ -31,8 +40,11 @@ function App() {
           onClick={() =>
             setDarkMode(!darkMode)
           }
+          className="px-4 py-2 rounded-lg border"
         >
-          {darkMode ? "Light Mode" : "Dark Mode"}
+          {darkMode
+            ? "Light Mode"
+            : "Dark Mode"}
         </button>
       </div>
     </div>

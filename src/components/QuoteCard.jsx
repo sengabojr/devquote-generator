@@ -1,19 +1,12 @@
 function QuoteCard({ quote }) {
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        textAlign: "center",
-      }}
-    >
-      <h2>{quote.text}</h2>
+    <div className="max-w-xl text-center px-4">
+      <h2 className="text-2xl font-semibold">
+        {quote.text}
+      </h2>
 
-      <p
-        style={{
-          marginTop: "10px",
-        }}
-      >
-        - {quote.author}
+      <p className="mt-3 text-lg">
+        — {quote.author}
       </p>
     </div>
   );
