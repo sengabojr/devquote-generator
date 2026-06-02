@@ -5,6 +5,7 @@ import QuoteCard from "./components/QuoteCard";
 function App() {
   const [quote, setQuote] = useState(quotes[0]);
   const [darkMode, setDarkMode] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const randomQuote = () => {
     const randomIndex = Math.floor(
@@ -12,6 +13,22 @@ function App() {
     );
 
     setQuote(quotes[randomIndex]);
+  };
+
+  const copyQuote = async () => {
+    const text = `"${quote.text}" - ${quote.author}`;
+
+    try {
+      await navigator.clipboard.writeText(text);
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -28,25 +45,36 @@ function App() {
 
       <QuoteCard quote={quote} />
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-wrap justify-center">
         <button
           onClick={randomQuote}
-          className="px-4 py-2 rounded-lg border"
+          className="px-4 py-2 rounded-lg border hover:scale-105 transition"
         >
           New Quote
         </button>
 
         <button
-          onClick={() =>
-            setDarkMode(!darkMode)
-          }
-          className="px-4 py-2 rounded-lg border"
+          onClick={copyQuote}
+          className="px-4 py-2 rounded-lg border hover:scale-105 transition"
+        >
+          Copy Quote
+        </button>
+
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="px-4 py-2 rounded-lg border hover:scale-105 transition"
         >
           {darkMode
             ? "Light Mode"
             : "Dark Mode"}
         </button>
       </div>
+
+      {copied && (
+        <p className="text-green-500 font-medium">
+          Quote copied to clipboard!
+        </p>
+      )}
     </div>
   );
 }
