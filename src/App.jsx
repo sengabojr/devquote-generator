@@ -4,6 +4,7 @@ import QuoteCard from "./components/QuoteCard";
 
 function App() {
   const [quote, setQuote] = useState(quotes[0]);
+  const [darkMode, setDarkMode] = useState(false);
 
   const randomQuote = () => {
     const randomIndex = Math.floor(
@@ -15,22 +16,25 @@ function App() {
 
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: "20px"
-      }}
+      className={`app ${darkMode ? "dark" : ""}`}
     >
       <h1>DevQuote Generator</h1>
 
       <QuoteCard quote={quote} />
 
-      <button onClick={randomQuote}>
-        New Quote
-      </button>
+      <div className="buttons">
+        <button onClick={randomQuote}>
+          New Quote
+        </button>
+
+        <button
+          onClick={() =>
+            setDarkMode(!darkMode)
+          }
+        >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
     </div>
   );
 }
